@@ -21,4 +21,4 @@ steps:
     commands:
       - npm config set @wissem-industries:registry https://npm.pkg.github.com
       - npm config set //npm.pkg.github.com/:_authToken "$GITHUB_PACKAGES_TOKEN"
-      - npm publish
+      - npm publish --ignore-scripts
