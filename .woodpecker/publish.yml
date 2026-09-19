@@ -1,0 +1,24 @@
+when:
+  - event: tag
+    ref: refs/tags/v*
+
+steps:
+  - name: install
+    image: oven/bun:alpine
+    commands:
+      - bun install --frozen-lockfile
+
+  - name: check
+    image: oven/bun:alpine
+    commands:
+      - bun run check
+
+  - name: publish
+    image: node:22-alpine
+    environment:
+      GITHUB_PACKAGES_TOKEN:
+        from_secret: github_packages_token
+    commands:
+      - npm config set @wissem-industries:registry https://npm.pkg.github.com
+      - npm config set //npm.pkg.github.com/:_authToken "$GITHUB_PACKAGES_TOKEN"
+      - npm publish
