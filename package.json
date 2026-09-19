@@ -1,0 +1,70 @@
+{
+  "name": "@wissem-industries/ui",
+  "description": "Shared Nuxt UI design system layer for Wissem's Industries applications.",
+  "type": "module",
+  "version": "0.1.0",
+  "license": "MIT",
+  "author": {
+    "name": "Wissem's Industries",
+    "url": "https://github.com/Wissem-Industries"
+  },
+  "keywords": [
+    "nuxt",
+    "nuxt-layer",
+    "nuxt-ui",
+    "design-system",
+    "vue"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Wissem-Industries/Wissem-UI.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Wissem-Industries/Wissem-UI/issues"
+  },
+  "homepage": "https://github.com/Wissem-Industries/Wissem-UI#readme",
+  "main": "./nuxt.config.ts",
+  "files": [
+    "app",
+    "nuxt.config.ts",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "packageManager": "bun@1.4.2",
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org/"
+  },
+  "scripts": {
+    "dev": "nuxi dev .playground",
+    "dev:prepare": "nuxt prepare .playground",
+    "build": "nuxt build .playground",
+    "generate": "nuxt generate .playground",
+    "preview": "nuxt preview .playground",
+    "lint": "biome check .",
+    "lint:fix": "biome check --write .",
+    "typecheck": "nuxt typecheck .playground",
+    "pack:check": "bun pm pack --dry-run",
+    "check": "bun run lint && bun run typecheck && bun run build && bun run pack:check",
+    "prepublishOnly": "bun run check"
+  },
+  "dependencies": {
+    "@fontsource-variable/geist": "^5.3.0",
+    "@fontsource-variable/geist-mono": "^5.3.0",
+    "@iconify-json/lucide": "^1.2.134",
+    "@iconify-json/ri": "^1.2.10",
+    "@nuxt/ui": "^4.11.1",
+    "tailwindcss": "^4.3.3"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "^2.5.14",
+    "@types/node": "^24.13.4",
+    "nuxt": "^4.5.2",
+    "typescript": "^6.0.3",
+    "vue": "^3.5.42",
+    "vue-tsc": "^3.3.11"
+  }
+}
