@@ -46,6 +46,47 @@ body {
   text-rendering: optimizeLegibility;
 }
 
+.wi-glass-card {
+  --wi-glass-x: 50%;
+  --wi-glass-y: 50%;
+  position: relative;
+  isolation: isolate;
+}
+
+.wi-glass-card--halo::before {
+  position: absolute;
+  inset: -1rem;
+  z-index: -1;
+  pointer-events: none;
+  content: "";
+  background: radial-gradient(
+    7rem circle at calc(var(--wi-glass-x) + 1rem) calc(var(--wi-glass-y) + 1rem),
+    color-mix(in srgb, var(--ui-primary) 20%, transparent),
+    transparent 72%
+  );
+  filter: blur(0.75rem);
+  opacity: 0;
+  transition: opacity 180ms ease;
+}
+
+.wi-glass-card--halo:hover::before {
+  opacity: 0.58;
+}
+
+.wi-glass-card > .wi-glass-card__surface {
+  border-color: color-mix(in srgb, var(--ui-border) 48%, transparent);
+  background: color-mix(in srgb, var(--ui-bg-elevated) 72%, transparent);
+  box-shadow:
+    inset 0 1px 0 color-mix(in srgb, white 9%, transparent),
+    0 8px 24px color-mix(in srgb, black 7%, transparent);
+  -webkit-backdrop-filter: blur(16px);
+  backdrop-filter: blur(16px);
+}
+
+.wi-glass-card--halo:hover > .wi-glass-card__surface {
+  border-color: color-mix(in srgb, var(--ui-border) 62%, transparent);
+}
+
 ::selection {
   color: var(--ui-color-violet-950);
   background: var(--ui-color-violet-200);
@@ -80,5 +121,11 @@ body {
     transition-duration: 180ms;
     transition-property: background-color, border-color, color;
     transition-timing-function: ease;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wi-glass-card--halo::before {
+    transition: none;
   }
 }
