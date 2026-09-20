@@ -40,7 +40,7 @@ html {
 }
 
 body {
-  min-width: 20rem;
+  min-width: 0;
   background: var(--ui-bg);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
