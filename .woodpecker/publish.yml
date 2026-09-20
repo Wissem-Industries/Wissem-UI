@@ -4,12 +4,12 @@ when:
 
 steps:
   - name: install
-    image: oven/bun:alpine
+    image: oven/bun:1.4.2-alpine
     commands:
       - bun install --frozen-lockfile
 
   - name: check
-    image: oven/bun:alpine
+    image: oven/bun:1.4.2-alpine
     commands:
       - bun run check
 
@@ -20,5 +20,7 @@ steps:
         from_secret: github_packages_token
     commands:
       - npm config set @wissem-industries:registry https://npm.pkg.github.com
-      - npm config set //npm.pkg.github.com/:_authToken "$GITHUB_PACKAGES_TOKEN"
-      - npm publish --ignore-scripts
+      - npm config set //npm.pkg.github.com/:_authToken "$${GITHUB_PACKAGES_TOKEN}"
+      - VERSION=$(node -p "require('./package.json').version")
+      - test "v$${VERSION}" = "$${CI_COMMIT_TAG}"
+      - npm view "@wissem-industries/ui@$${VERSION}" version --registry https://npm.pkg.github.com >/dev/null 2>&1 || npm publish --ignore-scripts
