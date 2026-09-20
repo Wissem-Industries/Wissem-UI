@@ -50,6 +50,9 @@ export default defineAppConfig({
       warning: 'i-ri-alert-line',
     },
     button: {
+      slots: {
+        base: 'font-medium',
+      },
       defaultVariants: {
         variant: 'subtle',
       },
@@ -111,6 +114,32 @@ export default defineAppConfig({
     pinInput: {
       defaultVariants: {
         variant: 'soft',
+      },
+    },
+    card: {
+      slots: {
+        root: 'ring-default/70 shadow-sm',
+      },
+    },
+    navigationMenu: {
+      slots: {
+        link: 'font-medium',
+      },
+      defaultVariants: {
+        color: 'neutral',
+        variant: 'link',
+      },
+    },
+    pageHero: {
+      slots: {
+        title: 'text-pretty tracking-tight',
+        description: 'text-pretty leading-7',
+      },
+    },
+    pageSection: {
+      slots: {
+        title: 'text-pretty tracking-tight',
+        description: 'text-pretty leading-7',
       },
     },
   },

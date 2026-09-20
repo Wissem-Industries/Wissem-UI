@@ -10,22 +10,75 @@
 
 :root {
   --ui-radius: 0.1875rem;
+  --ui-container: var(--container-6xl);
 }
 
 :root,
 .light {
+  color-scheme: light;
+  --ui-bg: var(--ui-color-neutral-50);
   --ui-bg-muted: var(--ui-color-neutral-100);
-  --ui-bg-elevated: var(--ui-color-neutral-100);
+  --ui-bg-elevated: var(--ui-color-neutral-50);
   --ui-bg-accented: var(--ui-color-neutral-200);
   --ui-text: var(--ui-color-neutral-900);
   --ui-text-highlighted: var(--ui-color-neutral-950);
 }
 
 .dark {
+  color-scheme: dark;
   --ui-bg: var(--ui-color-neutral-950);
   --ui-bg-muted: var(--ui-color-neutral-900);
-  --ui-bg-elevated: var(--ui-color-neutral-900);
+  --ui-bg-elevated: var(--ui-color-neutral-950);
   --ui-bg-accented: var(--ui-color-neutral-800);
   --ui-text: var(--ui-color-neutral-100);
   --ui-text-highlighted: var(--ui-color-neutral-50);
+}
+
+html {
+  scroll-padding-top: 6rem;
+  background: var(--ui-bg);
+}
+
+body {
+  min-width: 20rem;
+  background: var(--ui-bg);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  color: var(--ui-color-violet-950);
+  background: var(--ui-color-violet-200);
+}
+
+.dark ::selection {
+  color: var(--ui-color-violet-50);
+  background: var(--ui-color-violet-800);
+}
+
+:where(a, button, input, textarea, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--ui-primary);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  html,
+  body,
+  .bg-default,
+  .bg-elevated,
+  .bg-muted,
+  .text-default,
+  .text-highlighted,
+  .text-muted,
+  .text-toned,
+  .border-default,
+  .border-muted {
+    transition-duration: 180ms;
+    transition-property: background-color, border-color, color;
+    transition-timing-function: ease;
+  }
 }

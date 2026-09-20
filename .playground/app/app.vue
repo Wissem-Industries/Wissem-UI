@@ -1,5 +1,6 @@
 <script setup lang="ts">
 const name = ref('')
+const message = ref('')
 const colorMode = useColorMode()
 const isDark = computed(() => colorMode.value === 'dark')
 
@@ -11,7 +12,7 @@ function toggleColorMode() {
 <template>
   <UApp>
     <UContainer class="py-12">
-      <div class="mx-auto max-w-xl space-y-6">
+      <div class="mx-auto max-w-4xl space-y-8">
         <div>
           <div class="flex items-center justify-between gap-4">
             <UBadge label="Wissem UI" />
@@ -32,8 +33,29 @@ function toggleColorMode() {
           </p>
         </div>
 
-        <UCard>
-          <div class="space-y-4">
+        <div class="grid gap-6 lg:grid-cols-2">
+          <UCard>
+            <div class="space-y-4">
+              <div class="flex flex-wrap gap-2">
+                <UBadge label="Default" />
+                <UBadge label="Neutral" color="neutral" />
+                <UBadge label="Success" color="success" />
+              </div>
+
+              <div class="flex flex-wrap gap-2">
+                <UButton label="Primary action" />
+                <UButton label="Secondary action" variant="outline" />
+                <UButton
+                  label="Ghost action"
+                  color="neutral"
+                  variant="ghost"
+                />
+              </div>
+            </div>
+          </UCard>
+
+          <UCard>
+            <div class="space-y-4">
             <UFormField label="Example input">
               <UInput
                 v-model="name"
@@ -46,12 +68,16 @@ function toggleColorMode() {
               Hello, {{ name }}.
             </p>
 
-            <div class="flex flex-wrap gap-2">
-              <UButton label="Primary action" />
-              <UButton label="Secondary action" variant="outline" />
+              <UFormField label="Example message">
+                <UTextarea
+                  v-model="message"
+                  class="w-full"
+                  placeholder="Write a message..."
+                />
+              </UFormField>
             </div>
-          </div>
-        </UCard>
+          </UCard>
+        </div>
       </div>
     </UContainer>
   </UApp>
