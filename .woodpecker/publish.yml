@@ -3,6 +3,17 @@ when:
     ref: refs/tags/v*
 
 steps:
+  - name: deployment-start
+    image: oven/bun:1.4.2-alpine
+    environment:
+      GITHUB_PACKAGES_TOKEN:
+        from_secret: github_packages_token
+      DEPLOYMENT_ENVIRONMENT: package-registry
+      DEPLOYMENT_PRODUCTION: "false"
+      DEPLOYMENT_TASK: publish:package
+    commands:
+      - bun .woodpecker/github-deployment.mjs start
+
   - name: install
     image: oven/bun:1.4.2-alpine
     commands:
@@ -12,6 +23,9 @@ steps:
     image: oven/bun:1.4.2-alpine
     commands:
       - bun run check
+    depends_on:
+      - deployment-start
+      - install
 
   - name: publish
     image: node:22-alpine
@@ -24,3 +38,28 @@ steps:
       - VERSION=$(node -p "require('./package.json').version")
       - test "v$${VERSION}" = "$${CI_COMMIT_TAG}"
       - npm view "@wissem-industries/ui@$${VERSION}" version --registry https://npm.pkg.github.com >/dev/null 2>&1 || npm publish --ignore-scripts
+    depends_on:
+      - check
+
+  - name: deployment-success
+    image: oven/bun:1.4.2-alpine
+    environment:
+      GITHUB_PACKAGES_TOKEN:
+        from_secret: github_packages_token
+      DEPLOYMENT_STATUS_DESCRIPTION: Publication du paquet GitHub Packages terminée
+      DEPLOYMENT_URL: https://github.com/orgs/Wissem-Industries/packages/npm/package/ui
+    commands:
+      - bun .woodpecker/github-deployment.mjs success
+    depends_on:
+      - publish
+
+  - name: deployment-failure
+    image: oven/bun:1.4.2-alpine
+    environment:
+      GITHUB_PACKAGES_TOKEN:
+        from_secret: github_packages_token
+      DEPLOYMENT_STATUS_DESCRIPTION: Échec du pipeline de publication
+    commands:
+      - bun .woodpecker/github-deployment.mjs failure
+    when:
+      - status: [failure]
