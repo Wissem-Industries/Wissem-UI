@@ -1,9 +1,27 @@
 # Wissem UI
 
-Wissem UI is the shared Nuxt UI design system layer for Wissem's Industries
-applications. It centralizes the visual foundations used across the
-`wissem.pro` ecosystem while keeping each application in control of its own
-pages and business logic.
+<p align="center">
+  <strong>The shared Nuxt design system for Wissem’s Industries.</strong><br />
+  Reusable visual foundations for the applications in the <code>wissem.pro</code> ecosystem.
+</p>
+
+<p align="center">
+  <a href="https://ci.wissem.pro/repos/1"><img alt="Woodpecker CI" src="https://ci.wissem.pro/api/badges/1/status.svg" /></a>
+  <a href="https://github.com/Wissem-Industries/Wissem-UI/releases"><img alt="Latest version" src="https://img.shields.io/github/v/tag/Wissem-Industries/Wissem-UI?sort=semver&label=version" /></a>
+  <a href="https://github.com/orgs/Wissem-Industries/packages/npm/package/ui"><img alt="GitHub Packages" src="https://img.shields.io/badge/GitHub%20Packages-@wissem--industries%2Fui-181717?logo=github&logoColor=white" /></a>
+  <a href="LICENSE"><img alt="MIT license" src="https://img.shields.io/github/license/Wissem-Industries/Wissem-UI" /></a>
+</p>
+
+<p align="center">
+  <img alt="Nuxt 4" src="https://img.shields.io/badge/Nuxt-4-00DC82?logo=nuxt.js&logoColor=white" />
+  <img alt="Vue 3" src="https://img.shields.io/badge/Vue-3-4FC08D?logo=vuedotjs&logoColor=white" />
+  <img alt="Bun 1.4" src="https://img.shields.io/badge/Bun-1.4-FBF0DF?logo=bun&logoColor=000" />
+  <img alt="Biome" src="https://img.shields.io/badge/Biome-2-60A5FA?logo=biome&logoColor=white" />
+</p>
+
+Wissem UI is a Nuxt Layer built with Nuxt 4, Vue 3, Nuxt UI 4 and Tailwind CSS
+4. Applications extend `@wissem-industries/ui` to share the theme and component
+defaults while keeping their own pages and business logic.
 
 The package is a Nuxt Layer built with Nuxt 4, Vue 3, Nuxt UI 4 and Tailwind
 CSS 4. Applications inherit the theme and Nuxt UI configuration by extending
@@ -29,6 +47,10 @@ bun add --dev @wissem-industries/ui
 dependencies of this package. A consuming application does not need to install
 or register them again. Geist and Geist Mono are also bundled locally, so a
 consumer build does not depend on Google Fonts being reachable.
+
+The WissemHome favicon is included automatically at `/favicon.ico`. To use a
+different favicon for one application, add its own `public/favicon.ico` to
+override the design system asset.
 
 ### 2. Extend the Layer
 
@@ -147,6 +169,7 @@ Only the files required by consumers are published:
 
 ```text
 app/
+public/
 nuxt.config.ts
 README.md
 LICENSE
@@ -158,21 +181,15 @@ excluded from the package.
 
 ## Publication
 
-The package is configured as a public scoped package on npm. Before the first
-publication, confirm that the npm account used by Wissem's Industries owns or
-has access to the `@wissem` scope. GitHub organization ownership does not grant
-npm scope ownership automatically.
+The package is published to the GitHub Packages npm registry at
+`https://npm.pkg.github.com`. Local consumers need a GitHub token with
+`read:packages` access in their user-level `.npmrc`; CI uses the shared
+`github_packages_token` Woodpecker secret.
 
-After setting the final version and authenticating with npm:
-
-```bash
-bun run check
-bun publish
-```
-
-`prepublishOnly` runs the full check again before a registry publication. The
-CI workflow validates every push and pull request but never publishes a
-release automatically.
+Version tags matching `v*` run the Woodpecker pipeline. It verifies the tag
+against `package.json`, runs all quality checks, publishes the package and
+records the result in GitHub Deployments under `package-registry`. Release
+titles follow the `Wissem UI vX.Y.Z` format.
 
 ## Project scope
 
