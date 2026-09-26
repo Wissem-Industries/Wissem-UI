@@ -3,11 +3,11 @@ when:
 
 steps:
   - name: install
-    image: oven/bun:1.4.2-alpine
+    image: oven/bun:alpine
     commands:
       - bun install --frozen-lockfile
 
   - name: check
-    image: oven/bun:1.4.2-alpine
+    image: oven/bun:alpine
     commands:
       - bun run check

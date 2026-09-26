@@ -63,7 +63,7 @@ export default defineAppConfig({
       },
       defaultVariants: {
         variant: 'subtle',
-        size: 'large',
+        size: 'lg',
       },
     },
     input: {

@@ -42,6 +42,15 @@ function toggleColorMode() {
                 <UBadge label="Success" color="success" />
               </div>
 
+              <div class="flex flex-wrap items-center gap-2">
+                <UBadge color="neutral" variant="soft">
+                  <span class="mr-1.5 size-1.5 rounded-full bg-emerald-500" />
+                  Active
+                </UBadge>
+                <UBadge label="Design" color="neutral" variant="outline" />
+                <UBadge label="Retainer" color="neutral" variant="outline" />
+              </div>
+
               <div class="flex flex-wrap gap-2">
                 <UButton label="Primary action" />
                 <UButton label="Secondary action" variant="outline" />
